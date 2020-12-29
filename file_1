@@ -1,0 +1,156 @@
+#ifndef OPERATIONS_H_INCLUDED
+#define OPERATIONS_H_INCLUDED
+
+//Function declarations
+char menu();
+void addFractions(int a1, int b1, int a2, int b2, int&num, int&den);
+void subtractFractions(int a1, int b1, int a2, int b2, int&num, int&den);
+void multiplyFractions(int a1, int b1, int a2, int b2, int&num, int&den);
+void divideFractions(int a1, int b1, int a2, int b2, int&num, int&den);
+
+#endif // OPERATIONS_H_INCLUDED
+
+#include <iostream>
+#include "operations.h"
+
+using namespace std;
+
+//Function that displays menu to user
+char menu()
+{
+char operationType;
+
+//Displaying menu to user
+cout<<"\n\n\tProgram that lets the user perform "<< "arithmetic operations on fractions. ";
+cout<<"\n\n\t\t MENU";
+cout << "\n\n\tAddition :+" <<"\n\tSubtraction :- " <<"\n\tMultiplication :*"<<"\n\tDivision :/";
+cout << "\n\n\tEnter operation to perform: ";
+
+cin >>operationType;
+
+return operationType;
+}
+
+//Function that performs addition operation
+void addFractions(int a1, int b1, int a2, int b2, int&num, int&den)
+{
+num = (a1*b2) + (b1*a2);
+den = b1*b2;
+}
+
+//Function that performs subtraction operation
+void subtractFractions(int a1, int b1, int a2, int b2, int&num, int&den)
+{
+num = (a1*b2) - (b1*a2);
+den = b1*b2;
+}
+
+//Function that performs multiplication operation
+void multiplyFractions(int a1, int b1, int a2, int b2, int&num, int&den)
+{
+num = a1*a2;
+den = b1*b2;
+}
+
+//Function that performs division operation
+void divideFractions(int a1, int b1, int a2, int b2, int&num, int&den)
+{
+num = a1*b2;
+den = b1*a2;
+}
+
+#include <iostream>
+#include <string>
+
+#include "operations.h"
+
+using namespace std;
+
+//Main function
+int main()
+{
+   int a1, b1, a2, b2, num, den;
+
+   //Display menu to user and accept input from user
+   char ch = menu();
+
+   try
+   {
+   //Reading numerator
+       cout << "\n\tEnter the numerator of fractional: ";
+       cin >> a1;
+
+//Reading denominator
+       cout << "\n\tEnter the denominator of fractional: ";
+       cin >> b1;
+
+//Checking for valid denominator
+       if(b1==0)
+throw b1;
+       else if(b1<0)
+       {
+           string s="Negative denominator Exception";
+           throw s;
+       }
+
+//Reading second numerator
+cout << "\n\tEnter the numerator of fraction2: ";
+cin >> a2;
+
+//Reading second denominator
+cout << "\n\tEnter the denominator of fraction2: ";
+cin >> b2;
+
+//Checking for valid denominator
+if (b2==0)
+           throw b2;
+else if (b2<0)
+{
+string s="Negative denomintor Exception";
+throw s;
+}
+
+//Performing different operations
+       switch(ch)
+       {
+       //Addition operation
+           case '+': addFractions(a1,b1,a2,b2,num,den);
+cout<<"\n\tThe sum of the fractions is: "<<num<<"/"<<den << " = " << (num/(double)den);
+break;
+
+//Subtraction operation
+           case'-': subtractFractions(a1,b1,a2,b2,num,den);
+cout<<"\n\tDifference of the fractions is"<<num<<"/"<<den << " = " << (num/(double)den);
+break;
+
+//Multiplication operation
+case '*': multiplyFractions(a1,b1,a2,b2,num,den);
+cout<<"\n\tProduct of the fractions is"<<num<<"/"<<den << " = " << (num/(double)den);
+break;
+
+//Division operation
+           case '/': if (a2 != 0)
+{
+//If denominator is zero
+divideFractions(a1,b1,a2,b2,num,den);
+cout<<"\nDivision of the fractions = "<< num<< "/"<<den << " = " << (num/(double)den);
+}
+else
+cout <<"\tDenominator fraction "<< "cannot e zero.";
+break;
+}
+}
+//Catching exceptions
+catch(int x)
+{
+cout<<"Denominator is "<<x<<"Exception"<<endl;
+}
+catch(string s)
+{
+cout<<s;
+}
+
+cout << endl << endl;
+system("pause");
+return 0;
+}
